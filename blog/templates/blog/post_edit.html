@@ -1,28 +1,24 @@
 {% extends "base.html" %}
 
-{% block title %}{{ post.title }} - Django Blog{% endblock %}
+{% block title %}Edit Post - Django Blog{% endblock %}
 
 {% block content %}
 
-<article class="post-card">
+<h1>Edit Post</h1>
 
-    <h1>{{ post.title }}</h1>
+<form method="POST">
+    {% csrf_token %}
 
-    <p class="post-date">
-        Published {{ post.created_at }}
-    </p>
+    <label>Title</label>
+    <input type="text" name="title" value="{{ post.title }}">
 
-    <hr>
+    <label>Slug</label>
+    <input type="text" name="slug" value="{{ post.slug }}">
 
-    <div class="post-content">
-        {{ post.content }}
-    </div>
+    <label>Content</label>
+    <textarea name="content">{{ post.content }}</textarea>
 
-    <div class="post-actions">
-        <a href="{% url 'post_edit' post.slug %}">Edit Post</a>
-        <a href="{% url 'home' %}">← Back to Home</a>
-    </div>
-
-</article>
+    <button type="submit">Update Post</button>
+</form>
 
 {% endblock %}
